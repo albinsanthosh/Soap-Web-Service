@@ -1,0 +1,53 @@
+https://youtu.be/Zx6NuO6niFI
+
+we can configure a method as webservice so other application can use the method
+
+Application written in different languages can also communicate
+
+consumer -> Interface -> Impl
+
+XML document - Contract - WSDL - like the interface
+
+UDDI - directories to get the data from - Universal discription discovery and integration
+Registry to find the webservice 
+
+data is sent in xml format
+Xml Protocol - Simple object access protocol (SOAP)
+
+Conversion of a java data to SOAP message - Done by Service Endpoint Interface (SEI)
+
+{Clent App [SEI(Java data)]} ---SOAP Message (XML)---> Web Service
+
+SEI gets generated - language specific 
+Out of WSDL we can generate the SEI
+
+Webservice example - https://jansipke.nl/examples-of-public-soap-web-services/
+
+WSDL - http://www.dataaccess.com/webservicesserver/numberconversion.wso?WSDL
+
+<service name="NumberConversion">
+<documentation>The Number Conversion Web Service, implemented with Visual DataFlex, provides functions that convert numbers into words or dollar amounts.</documentation>
+<port name="NumberConversionSoap" binding="tns:NumberConversionSoapBinding">
+<soap:address location="https://www.dataaccess.com/webservicesserver/numberconversion.wso"/>
+</port>
+<port name="NumberConversionSoap12" binding="tns:NumberConversionSoapBinding12">
+<soap12:address location="https://www.dataaccess.com/webservicesserver/numberconversion.wso"/>
+</port>
+</service>
+
+WSDL generates stub and calls the webservice
+mkdir sei
+cd sei
+wsimport
+
+# wsimport [options] <WSDL_URI>
+
+wsimport https://www.dataaccess.com/webservicesserver/numberconversion.wso?WSDL
+
+#to keep src file and -s location to save java files
+wsimport -keep -s src https://www.dataaccess.com/webservicesserver/numberconversion.wso?WSDL
+
+create a package with folder structure after src folder and paste all the java files got from the src folder 
+
+we need to use the service and port classes from wsdl - NumberConversion, NumberConversionSoap
+create NumberConversion object and on object.getNumberConversionSoap() to get instance of NumberConversionSoap
